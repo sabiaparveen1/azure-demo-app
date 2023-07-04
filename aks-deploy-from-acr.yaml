@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-springboot-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: azure-demo-app
+  template:
+    metadata:
+      labels:
+        app: azure-demo-app
+    spec:
+      containers:
+        - name: my-springboot-app
+          image: myacrsabia4321.azurecr.io/sabiaparveen1/azure-demo-app:#{Build.BuildId}#
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8085
+# service type loadbalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: azure-demo-app
+    k8s-app: azure-demo-app
+  name: azure-demo-app
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8085
+  type: LoadBalancer
+  selector:
+    app: azure-demo-app
