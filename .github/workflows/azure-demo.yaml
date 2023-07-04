@@ -3,7 +3,7 @@ name: Build and Deploy to AKS
 on:
   push:
     branches:
-      - main
+      - master
 
 env:
   REGISTRY: ghcr.io/sabiaparveen1/my-app:latest   # Replace with your GitHub Artifact Registry URL
