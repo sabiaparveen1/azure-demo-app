@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
       - name: Checkout code
-        uses: actions/checkout@v2
 
       - name: Set up Docker
-        uses: docker/setup-docker@v1
+      - uses: docker/setup-docker@v1
 
       - name: Log in to GitHub Artifact Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login "${{ env.REGISTRY }}" -u "${{ github.actor }}" --password-stdin
